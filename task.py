@@ -32,11 +32,32 @@ class OnlineSalesRegisterCollector:
             self.__name_items.remove(name)
             self.__number_items -= 1
 
-    def check_amount(self):
-        total = []
-        for item in self.__name_items:
-            total.append(self.__item_price[item])
+    @staticmethod
+    def __sum_prices_with_discount(total):
         if len(total) > 10:
             return sum(total) * 0.9
         else:
             return sum(total)
+
+    def check_amount(self):
+        total = []
+        for item in self.__name_items:
+            total.append(self.__item_price.get(item))
+        return self.__sum_prices_with_discount(total)
+
+    def __some_percent_tax_calculation(self, percent):
+        if percent < 0:
+            raise ValueError("Tax percent connot be negative")
+        total = []
+        some_percent_tax = []
+        for item in self.__name_items:
+            if self.__tax_rate.get(item) == percent:
+                some_percent_tax.append(item)
+                total.append(self.__item_price.get(item))
+        return self.__sum_prices_with_discount(total) * (percent / 100)
+
+    def twenty_percent_tax_calculation(self):
+        return self.__some_percent_tax_calculation(20)
+
+    def ten_percent_tax_calculation(self):
+            return self.__some_percent_tax_calculation(10)
