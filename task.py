@@ -102,12 +102,4 @@ class OnlineSalesRegisterCollector:
         now = datetime.datetime.now()
         for period in date:
             date_and_time.append(f"{period[0]}: {period[1](now)}")
-<<<<<<< HEAD
         return date_and_time
-
-test = OnlineSalesRegisterCollector()
-
-print(test.get_date_and_time())
-=======
-        return date_and_time
->>>>>>> 2e36ee5 (task 8)
